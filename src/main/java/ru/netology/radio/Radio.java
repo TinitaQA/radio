@@ -1,22 +1,34 @@
 package ru.netology.radio;
 
 public class Radio {
-    private int currentVolume;
-    private int currentRadioStation;
+    private int numberOfRadioStation = 10; // количество радиостанций
+    private int minRadioStation = 0; // минимальный номер радиостанции
+    private int maxRadioStation = numberOfRadioStation - 1; // максимальный номер радиостанции
+    private int currentRadioStation; // текущая радиостанция
+    private int minVolume = 0; // минимальная громкость
+    private int maxVolume = 100; // максимальная громкость
+    private int currentVolume; // текущая громкость
 
-    public int getCurrentVolume() {
-        return currentVolume;
+    public Radio(int numberOfRadioStation) {
+        this.maxRadioStation = numberOfRadioStation - 1;
+    }
+
+    public Radio() {
     }
 
     public int getCurrentRadioStation() {
         return currentRadioStation;
     }
 
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
     public void setCurrentRadioStation(int newCurrentRadioStation) {  // возможность выставить радиостаную
-        if (newCurrentRadioStation > 9) {
+        if (newCurrentRadioStation > maxRadioStation) {
             return;
         }
-        if (newCurrentRadioStation < 0) {
+        if (newCurrentRadioStation < minRadioStation) {
             return;
         }
         currentRadioStation = newCurrentRadioStation;
@@ -26,31 +38,31 @@ public class Radio {
         currentVolume = newCurrentVolume;
     }
 
-    public void increaseVolume() {
-        if (currentVolume < 100) {
+    public void increaseVolume() { // увеличить громкость
+        if (currentVolume < maxVolume) {
             currentVolume = currentVolume + 1;
         }
     }
 
-    public void decreaseVolume() {
-        if (currentVolume > 0) {
+    public void decreaseVolume() { // уменьшить громкость
+        if (currentVolume > minVolume) {
             currentVolume = currentVolume - 1;
         }
     }
 
-    public void nextRadioStation() {
-        if (currentRadioStation < 9) {
+    public void nextRadioStation() { // переключение на следующую станцию
+        if (currentRadioStation < maxRadioStation) {
             currentRadioStation = currentRadioStation + 1;
         } else {
-            currentRadioStation = 0;
+            currentRadioStation = minRadioStation;
         }
     }
 
-    public void prevRadioStation() {
-        if (currentRadioStation > 0) {
+    public void prevRadioStation() { // переключение на предыдущую станцию
+        if (currentRadioStation > minRadioStation) {
             currentRadioStation = currentRadioStation - 1;
         } else {
-            currentRadioStation = 9;
+            currentRadioStation = maxRadioStation;
         }
     }
 }
