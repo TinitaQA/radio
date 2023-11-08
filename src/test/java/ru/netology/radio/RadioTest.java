@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class RadioTest {
+    Radio fm = new Radio(30);
 
     @Test
     public void shouldIncreaseVolume() { // прибавить громкость
-        Radio fm = new Radio();
 
         fm.setCurrentVolume(1);
         fm.increaseVolume();
@@ -20,7 +20,6 @@ public class RadioTest {
 
     @Test
     public void shouldDecreaseVolume() { // убавить громкость
-        Radio fm = new Radio();
 
         fm.setCurrentVolume(99);
         fm.decreaseVolume();
@@ -33,7 +32,6 @@ public class RadioTest {
 
     @Test
     public void shouldNotIncreaseWhenVolumeMax() { // прибавить, когда громкость максимум
-        Radio fm = new Radio();
 
         fm.setCurrentVolume(100);
         fm.increaseVolume();
@@ -46,7 +44,6 @@ public class RadioTest {
 
     @Test
     public void shouldNotDecreaseWhenVolumeMin() { // убавить, когда громкость минимум
-        Radio fm = new Radio();
 
         fm.setCurrentVolume(0);
         fm.decreaseVolume();
@@ -59,7 +56,6 @@ public class RadioTest {
 
     @Test
     public void shouldChoiceRadioStation() { // установить радиостанцию
-        Radio fm = new Radio();
 
         fm.setCurrentRadioStation(7);
 
@@ -71,7 +67,6 @@ public class RadioTest {
 
     @Test
     public void shouldIncreaseRadioStation() { // cледующая станция
-        Radio fm = new Radio();
 
         fm.setCurrentRadioStation(1);
         fm.nextRadioStation();
@@ -84,7 +79,6 @@ public class RadioTest {
 
     @Test
     public void shouldDecreaseRadioStation() { // предыдущая станция
-        Radio fm = new Radio();
 
         fm.setCurrentRadioStation(8);
         fm.prevRadioStation();
@@ -97,9 +91,8 @@ public class RadioTest {
 
     @Test
     public void choiceRadioStationAfterMax() { // выбор станции больше максимума
-        Radio fm = new Radio();
 
-        fm.setCurrentRadioStation(10);
+        fm.setCurrentRadioStation(30);
 
         int expected = 0;
         int actual = fm.getCurrentRadioStation();
@@ -109,7 +102,6 @@ public class RadioTest {
 
     @Test
     public void choiceRadioStationBeforeMin() { // выбор станции меньше минимума
-        Radio fm = new Radio();
 
         fm.setCurrentRadioStation(-1);
 
@@ -121,6 +113,30 @@ public class RadioTest {
 
     @Test
     public void nextRadioStationAfterMax() { // cледующая станция после максимума
+
+        fm.setCurrentRadioStation(29);
+        fm.nextRadioStation();
+
+        int expected = 0;
+        int actual = fm.getCurrentRadioStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void prevRadioStationAfterMax() { // cледующая станция после минимума
+
+        fm.setCurrentRadioStation(0);
+        fm.prevRadioStation();
+
+        int expected = 29;
+        int actual = fm.getCurrentRadioStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldIncreaseRadioStationDefault() { // cледующая станция по умолчанию
         Radio fm = new Radio();
 
         fm.setCurrentRadioStation(9);
@@ -133,7 +149,7 @@ public class RadioTest {
     }
 
     @Test
-    public void prevRadioStationAfterMax() { // cледующая станция после минимума
+    public void shouldDecreaseRadioStationDefault() { // предыдущая станция по умолчанию
         Radio fm = new Radio();
 
         fm.setCurrentRadioStation(0);
